@@ -1,6 +1,6 @@
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   background-color: teal;
   padding: 20px;
@@ -47,3 +47,4 @@
   bottom: 0;
   width: 100%;
 }
+ 
