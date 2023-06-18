@@ -5,7 +5,7 @@ const cheerio = require('cheerio');
 module.exports = async (req, res) => {
   try {
     // Make a request to the website
-    const { data: html } = await axios.get('https://www.example.com');
+    const { data: html } = await axios.get('https://creativemarket.com/graphics/objects/abstract?sort=popular&page=1');
   
     // Parse the HTML
     const $ = cheerio.load(html);
