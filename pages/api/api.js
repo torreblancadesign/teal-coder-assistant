@@ -4,12 +4,19 @@ const cheerio = require('cheerio');
 
 module.exports = async (req, res) => {
   try {
+    // Create an axios instance with a User-Agent
+    const axiosInstance = axios.create({
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
+
     // Make a request to the website
-    const { data: html } = await axios.get('https://creativemarket.com/graphics/objects/abstract?sort=popular&page=1');
-  
+    const { data: html } = await axiosInstance.get('https://creativemarket.com/graphics/objects/abstract?sort=popular&page=1');
+ 
     // Parse the HTML
     const $ = cheerio.load(html);
-  
+ 
     // Select the products
     const products = $('.sp-product-card').map((i, el) => {
       return {
@@ -18,7 +25,7 @@ module.exports = async (req, res) => {
         imageUrl: $(el).find('img').attr('data-src'),
       };
     }).get();
-  
+ 
     // Send the products as the response
     res.status(200).json(products);
   } catch (error) {
