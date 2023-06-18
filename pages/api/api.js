@@ -4,13 +4,11 @@ const cheerio = require('cheerio');
 module.exports = async (req, res) => {
   try {
     // Make a request to the website
-    const { data: html } = await axios({
-      method: 'post',
-      url: 'https://creativemarket.com/graphics/objects/abstract?sort=popular&page=1',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-    });
+const { data: html } = await axios.get('https://creativemarket.com/graphics/objects/abstract?sort=popular&page=1', {
+  headers: {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537'
+  }
+});
 
     // Parse the HTML
     const $ = cheerio.load(html);
