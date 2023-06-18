@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
     });
 
     // Make a request to the website
-    const { data: html } = await axiosInstance.get('https://airvues.com');
+    const { data: html } = await axiosInstance.get('https://creativemarket.com/graphics/objects/abstract?sort=popular&page=1');
  
     // Parse the HTML
     const $ = cheerio.load(html);
