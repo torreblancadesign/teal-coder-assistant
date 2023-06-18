@@ -1,19 +1,17 @@
-// This is a Node.js script, which can be deployed as a Vercel Serverless Function
 const axios = require('axios');
 const cheerio = require('cheerio');
 
 module.exports = async (req, res) => {
   try {
-    // Create an axios instance with a User-Agent
-    const axiosInstance = axios.create({
+    // Make a request to the website
+    const { data: html } = await axios({
+      method: 'post',
+      url: 'https://creativemarket.com/graphics/objects/abstract?sort=popular&page=1',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-      }
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
     });
 
-    // Make a request to the website
-    const { data: html } = await axiosInstance.get('https://creativemarket.com/graphics/objects/abstract?sort=popular&page=1');
- 
     // Parse the HTML
     const $ = cheerio.load(html);
  
@@ -32,5 +30,6 @@ module.exports = async (req, res) => {
     res.status(500).json({ error: error.toString() });
   }
 };
+
 
  
